@@ -152,6 +152,73 @@ alex@alex-VirtualBox:~$ echo ${VECTOR[2]}
 
 Ejercicio 8:
 
+alias ne='ls -al'
+
+¿Qué cambiaría si queremos queremos que haga lo mismo pero en el directorio home correspondiente al usuario que lo ejecuta?
+
+alias ne='cd;ls -al'
+
+**************************************************************************************************
+Ejercicio 9:
+
+find $home -size -1
+
+A través de un cauce :
+
+find $home -size -1 > archivosP
+
+alex@alex-VirtualBox:~$ cat archivosP
+./.config/.gsd-keyboard.settings-ported
+./.config/enchant/es_ES.exc
+./.config/enchant/es_ES.dic
+./.cache/tracker3/files/http%3A%2F%2Ftracker.api.gnome.org%2Fontology%2Fv3%2Ftracker%23Audio.db-wal
+./.cache/tracker3/files/http%3A%2F%2Ftracker.api.gnome.org%2Fontology%2Fv3%2Ftracker%23Video.db-wal
+./.cache/tracker3/files/.meta.isrunning
+./.cache/tracker3/files/http%3A%2F%2Ftracker.api.gnome.org%2Fontology%2Fv3%2Ftracker%23Pictures.db-wal
+
+**************************************************************************************************
+Ejercicio 10:
+
+alex@alex-VirtualBox:~/Escritorio$ ls -l *ejemplo*
+-rw-rw-r-- 1 alex alex 0 nov 27 20:20 ejemplo
+
+**************************************************************************************************
+Ejercicio 11:
+
+man find
+man grep
+
+(APARECEN LOS MANUALES DE LOS DOS COMANDOS)
+
+**************************************************************************************************
+Ejercicio 12:
+
+alex@alex-VirtualBox:~/Escritorio$ cat /etc/passwd | grep alex
+alex:x:1000:1000:Alex,,,:/home/alex:/bin/bash
+
+**************************************************************************************************
+Ejercicio 13:
+
+alex@alex-VirtualBox:~/Escritorio$ find ~ ! -perm -o+r | wc -l
+1207
+
+**************************************************************************************************
+Ejercicio 14:
+
+Guión numE:
+
+#!/bin/bash
+
+ls -l $1 | wc -l
+
+alex@alex-VirtualBox:~$ chmod +x numE
+
+alex@alex-VirtualBox:~$ ./numE
+14
+
+
+
+
 
 
 
