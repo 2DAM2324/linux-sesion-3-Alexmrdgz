@@ -1,0 +1,168 @@
+Ejercicio 1: Escriba al menos, cinco variables de entorno junto con el valor que tienen.
+
+alex@alex-VirtualBox:~$ env (o printenv)
+
+COLORTERM=truecolor
+
+DESKTOP_SESSION=ubuntu
+
+XDG_SESSION_TYPE=wayland
+
+LANG=es_ES.UTF-8
+
+USERNAME=alex
+
+**************************************************************************************************
+
+Ejercicio 2: Ejecute las órdenes del cuadro e indique qué ocurre y cómo puede resolver la situación para que la variable NOMBRE se reconozca en el shell hijo.
+
+alex@alex-VirtualBox:~$ NOMBRE=FS (( Asignamos un valor a la variable NOMBRE. ))
+alex@alex-VirtualBox:~$ echo $NOMBRE (( Visualizamos el valor de la variable. ))
+
+FS (( VALOR ))
+
+alex@alex-VirtualBox:~$ bash (( bash contiene la ruta de acceso completa para ejecutar la instancia actual de bash, por lo tanto "refrescamos" la terminal en la que estamos. ))
+
+alex@alex-VirtualBox:~$ echo $NOMBRE (( Visualizamos el valor de la variable. ))
+
+(( No recibimos ninguna respuesta con el valor de la variable ya que hemos inicializado y perdemos la variable y su valor. ))
+
+COMO RESOLVER: Para resolver este problema debemos exportar la variable para que esta pase a ser de tipo global y podamos visualizarla tras inicializar bash sin perder su valor.
+
+**************************************************************************************************
+
+Ejercicio 3: Compruebe qué ocurre en las expresiones del ejemplo anterior si se quitan las comillas dobles del final y se ponen después de los dos puntos. 
+
+
+alex@alex-VirtualBox:~$  echo "Los archivos que hay en el directorio son:" $(ls -l)
+
+Los archivos que hay en el directorio son: total 40 drwxr-xr-x 2 alex alex 4096 oct 23 11:54 Descargas drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Documentos drwxr-xr-x 3 alex alex 4096 oct 30 17:44 Escritorio drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Imágenes drwxr-xr-x 2 alex alex 4096 oct 23 13:07 Música drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Plantillas drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Público drwx------ 5 alex alex 4096 oct 16 13:13 snap drwxrwxr-x 3 alex alex 4096 oct 23 12:36 usuario drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Vídeos
+
+
+Si escribo la expresion con las comillas detrás de los dos puntos, la unica diferencia que existe es que no hay un salto de linea para distinguir claramente cada una de las sentencias.
+
+
+alex@alex-VirtualBox:~$ echo "Los archivos que hay en el directorio son:" `ls -l`
+
+Los archivos que hay en el directorio son: total 40 drwxr-xr-x 2 alex alex 4096 oct 23 11:54 Descargas drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Documentos drwxr-xr-x 3 alex alex 4096 oct 30 17:44 Escritorio drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Imágenes drwxr-xr-x 2 alex alex 4096 oct 23 13:07 Música drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Plantillas drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Público drwx------ 5 alex alex 4096 oct 16 13:13 snap drwxrwxr-x 3 alex alex 4096 oct 23 12:36 usuario drwxr-xr-x 2 alex alex 4096 oct 16 12:57 Vídeos
+
+En esta sentencia obtengo el mismo resultado que en la primera.
+
+Estas dos expresiones dan el mismo resultado.
+
+¿Qué sucede si se sustituyen las comillas dobles por comillas simples?
+
+alex@alex-VirtualBox:~$ echo 'Los archivos que hay en el directorio son: $(ls -l)'
+Los archivos que hay en el directorio son: $(ls -l)
+
+alex@alex-VirtualBox:~$ echo 'Los archivos que hay en el directorio son: `ls -l`'
+Los archivos que hay en el directorio son: `ls -l`
+
+Lo que se obtiene en la salida es lo que está entre comillas simples. Hace que no se ejecute el comando.
+
+**************************************************************************************************
+
+Ejercicio 4: Pruebe la siguiente asignación:
+
+alex@alex-VirtualBox:~$ numero=$numero+1
+alex@alex-VirtualBox:~$ echo $numero
++1
+
+¿Qué ha ocurrido?
+
+No se ha realizado la operación aritmetica, se ha guardado como sentencia la ultima parte (+1) de la asignación. La palabra numero no se ha guardado por que tiene delante $.
+
+**************************************************************************************************
+
+Ejercicio 5: 
+
+alex@alex-VirtualBox:~$ ./holamundo Ana
+Hola Ana
+
+alex@alex-VirtualBox:~$ ./holamundo Pol
+Hola Pol
+
+
+El archivo contiene: 
+
+GNU nano 6.2 Titulo: holamundo                                 
+
+#!/bin/bash
+
+echo Hola $1 
+
+Esto permite que al momento de la ejecución del programa podamos darle valor a nuestro guión , en este caso al guión $1.
+
+**************************************************************************************************
+
+Ejercicio 6:
+
+alex@alex-VirtualBox:~$ ./holamundo Ana Pablo Pol Alex Gonzalo Antonio
+Hola Ana Pablo Pol Alex Gonzalo Antonio
+
+
+Lo que he modificado a sido lo siguiente:
+
+GNU nano 6.2 Titulo: holamundo                                 
+#!/bin/bash
+
+echo Hola "$*"
+
+"$*" siginifica que contiene el nombre del guión y todos sus argumentos, al estar entre comillas esto equivale a todos los guiones comprendidos entre $1 hasta $n, es decir, todos los que quieran ser utilizados.
+
+**************************************************************************************************
+
+Ejercicio 7:
+
+A) Imprima los valores de las tres variables en tres columnas con 15 caracteres de ancho.
+
+alex@alex-VirtualBox:~$ printf "%-15s %-15s %-15s\n" "$VAR1" "$VAR2" "$VAR3" 
+hola            adios           14             
+
+B) ¿Son variables locales o globales?.
+
+Son locales desde el principio pero pueden exportarse y hacerse globales. Si siendo locales hacemos un bash a la terminal perderemos las 3 variables.
+
+C) Borre la variable VAR2.
+
+alex@alex-VirtualBox:~$ unset VAR2
+
+D) Abra otra ventana de tipo terminal, ¿puede visualizar las dos variables restantes?.
+
+No es posible debido a que son variables locales y cada terminal tiene su propio espacio para estas. Para poder visualizarlas deberian ser exportadas.
+
+E) Cree una variable de tipo vector con los valores iniciales de las tres variables.
+
+alex@alex-VirtualBox:~$ VECTOR=($VAR1 $VAR2 $VAR3)
+
+F) Muestre el segundo elemento del vector creado en el apartado enterior.
+
+Muestro los tres, a tener en cuenta que se empieza a contar desde 0.
+
+alex@alex-VirtualBox:~$ echo ${VECTOR[0]}
+hola
+
+alex@alex-VirtualBox:~$ echo ${VECTOR[1]}
+adios
+
+alex@alex-VirtualBox:~$ echo ${VECTOR[2]}
+14
+
+**************************************************************************************************
+
+Ejercicio 8:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
